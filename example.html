@@ -6,6 +6,8 @@
 </head>
 
 <body>
+	<input id="disable-button" type="button" value="disable">
+	<input id="enable-button" type="button" value="enable">
 	<div id="block1">
 		<input>
 	</div>
@@ -16,7 +18,19 @@
 	<script type="text/javascript" src="jquery-1.8.3.min.js"></script>
 	<script type="text/javascript" src="jquery.blockdisable.js"></script>
 	<script type="text/javascript">
-		$("#block1").blockDisableSet();
+		$("#disable-button").on("click", function () {
+			$("#block1").blockDisableSet();
+		});
+		$("#enable-button").on("click", function () {
+			$("#block1").blockDisableUnset();
+		});
+
+		$("body").on("focus", "input", function () {
+			if ($(this).blockDisabled()) {
+				$(this).blur();
+				return false;
+			}
+		});
 	</script>
 </body>
 </html>
