@@ -26,10 +26,6 @@
 					backgroundColor : "black",
 					opacity: 0.2
 				}));
-//console.log($self.position().top);
-//console.log($self.position().left);
-//console.log($self.innerHeight());
-//console.log($self.innerWidth());
 		});
 
 		return this;
