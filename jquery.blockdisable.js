@@ -24,8 +24,8 @@
 						left : $self.offset().left,
 						height : $self.outerHeight(),
 						width : $self.outerWidth(),
-						backgroundColor : "black",
-						opacity: 0.2
+						backgroundColor : "gray",
+						opacity: 0.3
 					});
 			$self.data(SAVE_KEY, $overlay);
 			$("body").append($overlay);
