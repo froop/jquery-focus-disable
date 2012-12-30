@@ -7,11 +7,11 @@
 /*global jQuery */
 (function ($) {
 	"use strict";
-	var SAVE_KEY = "blockdisable.overlay",
+	var SAVE_OVERLAY = "blockdisable.overlay",
 		DISABLE_CLASS = "block-disabled";
 
 	function removeOverlay($target) {
-		var $overlay = $target.data(SAVE_KEY);
+		var $overlay = $target.data(SAVE_OVERLAY);
 		if ($overlay) {
 			$overlay.remove();
 		}
@@ -31,7 +31,7 @@
 			});
 
 		removeOverlay($target);
-		$target.data(SAVE_KEY, $overlay);
+		$target.data(SAVE_OVERLAY, $overlay);
 		$("body").append($overlay);
 	}
 
