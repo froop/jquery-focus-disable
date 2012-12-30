@@ -7,12 +7,13 @@
 /*global jQuery */
 (function ($) {
 	"use strict";
-	var SAVE_KEY = "blockdisable.overlay";
+	var SAVE_KEY = "blockdisable.overlay",
+		DISABLE_CLASS = "block-disabled";
 
 	$.fn.blockDisableSet = function () {
 		var $elements = this;
 
-		$elements.addClass("block-disabled");
+		$elements.addClass(DISABLE_CLASS);
 		$elements.each(function () {
 			var $self = $(this),
 				$overlay = $("<div>")
@@ -36,7 +37,7 @@
 	$.fn.blockDisableUnset = function () {
 		var $elements = this;
 
-		$elements.removeClass("block-disabled");
+		$elements.removeClass(DISABLE_CLASS);
 		$elements.each(function () {
 			var $overlay = $(this).data(SAVE_KEY);
 			if ($overlay) {
@@ -49,6 +50,6 @@
 
 	$.fn.blockDisabled = function () {
 		var $elements = this;
-		return $elements.closest(".block-disabled").length > 0;
+		return $elements.closest("." + DISABLE_CLASS).length > 0;
 	};
 })(jQuery);
