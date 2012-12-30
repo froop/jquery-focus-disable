@@ -27,8 +27,8 @@
 				left : $target.offset().left,
 				height : $target.outerHeight(),
 				width : $target.outerWidth(),
-				backgroundColor : "gray",
-				opacity: 0.3
+				backgroundColor : "lightgrey",
+				opacity: 0.5
 			});
 
 		removeOverlay($target);
