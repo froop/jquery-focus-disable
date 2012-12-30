@@ -8,6 +8,7 @@
 (function ($) {
 	"use strict";
 	var SAVE_OVERLAY = "blockdisable.overlay",
+		SAVE_TABINDEX = "blockdisable.tabindex",
 		DISABLE_CLASS = "block-disabled";
 
 	function removeOverlay($target) {
@@ -35,12 +36,37 @@
 		$("body").append($overlay);
 	}
 
+	function disableFocus($target) {
+		$target.find("input").each(function () {
+			var $input = $(this);
+			if (!$input.data(SAVE_TABINDEX)) {
+				$input.data(SAVE_TABINDEX, $input.attr("tabindex"));
+				$input.attr("tabindex", "-1");
+			}
+		});
+	}
+
+	function enableFocus($target) {
+		$target.find("input").each(function () {
+			var $input = $(this),
+				savedTabindex = $input.data(SAVE_TABINDEX);
+			if (savedTabindex) {
+				$input.attr("tabindex", savedTabindex);
+				$input.removeData(SAVE_TABINDEX);
+			} else if ($input.attr("tabindex") === "-1") {
+				$input.removeAttr("tabindex");
+			}
+		});
+	}
+
 	$.fn.blockDisableSet = function () {
 		var $elements = this;
 
 		$elements.addClass(DISABLE_CLASS);
 		$elements.each(function () {
-			addOverlay($(this));
+			var $element = $(this);
+			addOverlay($element);
+			disableFocus($element);
 		});
 
 		return this;
@@ -51,7 +77,9 @@
 
 		$elements.removeClass(DISABLE_CLASS);
 		$elements.each(function () {
-			removeOverlay($(this));
+			var $element = $(this);
+			removeOverlay($element);
+			enableFocus($element);
 		});
 
 		return this;
