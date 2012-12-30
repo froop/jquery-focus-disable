@@ -36,16 +36,6 @@
 		$("body").append($overlay);
 	}
 
-	function disableFocus($target) {
-		$target.find("input").each(function () {
-			var $input = $(this);
-			if (!$input.data(SAVE_TABINDEX)) {
-				$input.data(SAVE_TABINDEX, $input.attr("tabindex"));
-				$input.attr("tabindex", "-1");
-			}
-		});
-	}
-
 	function enableFocus($target) {
 		$target.find("input").each(function () {
 			var $input = $(this),
@@ -56,6 +46,15 @@
 			} else if ($input.attr("tabindex") === "-1") {
 				$input.removeAttr("tabindex");
 			}
+		});
+	}
+
+	function disableFocus($target) {
+		enableFocus($target);
+		$target.find("input").each(function () {
+			var $input = $(this);
+			$input.data(SAVE_TABINDEX, $input.attr("tabindex"));
+			$input.attr("tabindex", "-1");
 		});
 	}
 
