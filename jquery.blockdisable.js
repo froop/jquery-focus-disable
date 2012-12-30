@@ -37,8 +37,10 @@
 
 		$elements.removeClass("block-disabled");
 		$elements.each(function () {
-			var $self = $(this);
-			$self.data("blockdisable.overlay").remove();
+			var $overlay = $(this).data("blockdisable.overlay");
+			if ($overlay) {
+				$overlay.remove();
+			}
 		});
 
 		return this;
