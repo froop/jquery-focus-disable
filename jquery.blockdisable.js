@@ -34,6 +34,7 @@
 						backgroundColor : "gray",
 						opacity: 0.3
 					});
+			removeOverlay($self);
 			$self.data(SAVE_KEY, $overlay);
 			$("body").append($overlay);
 		});
