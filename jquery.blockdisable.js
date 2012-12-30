@@ -10,6 +10,13 @@
 	var SAVE_KEY = "blockdisable.overlay",
 		DISABLE_CLASS = "block-disabled";
 
+	function removeOverlay($target) {
+		var $overlay = $target.data(SAVE_KEY);
+		if ($overlay) {
+			$overlay.remove();
+		}
+	}
+
 	$.fn.blockDisableSet = function () {
 		var $elements = this;
 
@@ -39,10 +46,7 @@
 
 		$elements.removeClass(DISABLE_CLASS);
 		$elements.each(function () {
-			var $overlay = $(this).data(SAVE_KEY);
-			if ($overlay) {
-				$overlay.remove();
-			}
+			removeOverlay($(this));
 		});
 
 		return this;
