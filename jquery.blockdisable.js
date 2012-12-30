@@ -7,6 +7,7 @@
 /*global jQuery */
 (function ($) {
 	"use strict";
+	var SAVE_KEY = "blockdisable.overlay";
 
 	$.fn.blockDisableSet = function () {
 		var $elements = this;
@@ -25,7 +26,7 @@
 						backgroundColor : "black",
 						opacity: 0.2
 					});
-			$self.data("blockdisable.overlay", $overlay);
+			$self.data(SAVE_KEY, $overlay);
 			$("body").append($overlay);
 		});
 
@@ -37,7 +38,7 @@
 
 		$elements.removeClass("block-disabled");
 		$elements.each(function () {
-			var $overlay = $(this).data("blockdisable.overlay");
+			var $overlay = $(this).data(SAVE_KEY);
 			if ($overlay) {
 				$overlay.remove();
 			}
