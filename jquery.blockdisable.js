@@ -13,19 +13,20 @@
 
 		$elements.addClass("block-disabled");
 		$elements.each(function () {
-			var $self = $(this);
-			$self.append($("<div>")
-				.addClass("overlay")
-				.css({
-					position : "absolute",
-					zIndex : 999,
-					top : $self.offset().top,
-					left : $self.offset().left,
-					height : $self.outerHeight(),
-					width : $self.outerWidth(),
-					backgroundColor : "black",
-					opacity: 0.2
-				}));
+			var $self = $(this),
+				$overlay = $("<div>")
+					.css({
+						position : "absolute",
+						zIndex : 999,
+						top : $self.offset().top,
+						left : $self.offset().left,
+						height : $self.outerHeight(),
+						width : $self.outerWidth(),
+						backgroundColor : "black",
+						opacity: 0.2
+					});
+			$self.data("blockdisable.overlay", $overlay);
+			$("body").append($overlay);
 		});
 
 		return this;
@@ -35,7 +36,10 @@
 		var $elements = this;
 
 		$elements.removeClass("block-disabled");
-		$(".overlay", $elements).remove();
+		$elements.each(function () {
+			var $self = $(this);
+			$self.data("blockdisable.overlay").remove();
+		});
 
 		return this;
 	};
