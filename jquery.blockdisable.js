@@ -17,26 +17,30 @@
 		}
 	}
 
+	function addOverlay($target) {
+		var $overlay = $("<div>")
+			.css({
+				position : "absolute",
+				zIndex : 999,
+				top : $target.offset().top,
+				left : $target.offset().left,
+				height : $target.outerHeight(),
+				width : $target.outerWidth(),
+				backgroundColor : "gray",
+				opacity: 0.3
+			});
+
+		removeOverlay($target);
+		$target.data(SAVE_KEY, $overlay);
+		$("body").append($overlay);
+	}
+
 	$.fn.blockDisableSet = function () {
 		var $elements = this;
 
 		$elements.addClass(DISABLE_CLASS);
 		$elements.each(function () {
-			var $self = $(this),
-				$overlay = $("<div>")
-					.css({
-						position : "absolute",
-						zIndex : 999,
-						top : $self.offset().top,
-						left : $self.offset().left,
-						height : $self.outerHeight(),
-						width : $self.outerWidth(),
-						backgroundColor : "gray",
-						opacity: 0.3
-					});
-			removeOverlay($self);
-			$self.data(SAVE_KEY, $overlay);
-			$("body").append($overlay);
+			addOverlay($(this));
 		});
 
 		return this;
