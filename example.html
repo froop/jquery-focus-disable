@@ -24,13 +24,6 @@
 		$("#enable-button").on("click", function () {
 			$("#block1").blockDisableUnset();
 		});
-
-		$("body").on("focus", "input", function () {
-			if ($(this).blockDisabled()) {
-				$(this).blur();
-				return false;
-			}
-		});
 	</script>
 </body>
 </html>
