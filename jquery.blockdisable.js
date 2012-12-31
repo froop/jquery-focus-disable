@@ -44,27 +44,27 @@
 	}
 
 	function enableFocus($target) {
-		eachFocusable($target, function ($input) {
-			var savedTabindex = $input.data(SAVE_TABINDEX);
+		eachFocusable($target, function ($item) {
+			var savedTabindex = $item.data(SAVE_TABINDEX);
 			if (savedTabindex) {
 				if (savedTabindex === TABINDEX_AUTO) {
-					$input.removeAttr("tabindex");
+					$item.removeAttr("tabindex");
 				} else {
-					$input.attr("tabindex", savedTabindex);
+					$item.attr("tabindex", savedTabindex);
 				}
-				$input.removeData(SAVE_TABINDEX);
+				$item.removeData(SAVE_TABINDEX);
 			}
 		});
 	}
 
 	function disableFocus($target) {
-		eachFocusable($target, function ($input) {
-			var tabIndex = $input.attr("tabindex");
-			if ($input.data(SAVE_TABINDEX)) {
+		eachFocusable($target, function ($item) {
+			var tabIndex = $item.attr("tabindex");
+			if ($item.data(SAVE_TABINDEX)) {
 				return;
 			}
-			$input.data(SAVE_TABINDEX, tabIndex ? tabIndex : TABINDEX_AUTO);
-			$input.attr("tabindex", "-1");
+			$item.data(SAVE_TABINDEX, tabIndex ? tabIndex : TABINDEX_AUTO);
+			$item.attr("tabindex", "-1");
 		});
 	}
 
