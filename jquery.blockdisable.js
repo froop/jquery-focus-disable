@@ -9,7 +9,8 @@
 	"use strict";
 	var SAVE_OVERLAY = "blockdisable.overlay",
 		SAVE_TABINDEX = "blockdisable.tabindex",
-		DISABLE_CLASS = "block-disabled";
+		DISABLE_CLASS = "block-disabled",
+		TABINDEX_AUTO = "auto";
 
 	function removeOverlay($target) {
 		var $overlay = $target.data(SAVE_OVERLAY);
@@ -41,19 +42,24 @@
 			var $input = $(this),
 				savedTabindex = $input.data(SAVE_TABINDEX);
 			if (savedTabindex) {
-				$input.attr("tabindex", savedTabindex);
+				if (savedTabindex === TABINDEX_AUTO) {
+					$input.removeAttr("tabindex");
+				} else {
+					$input.attr("tabindex", savedTabindex);
+				}
 				$input.removeData(SAVE_TABINDEX);
-			} else if ($input.attr("tabindex") === "-1") {
-				$input.removeAttr("tabindex");
 			}
 		});
 	}
 
 	function disableFocus($target) {
-		enableFocus($target);
 		$target.find("input").each(function () {
-			var $input = $(this);
-			$input.data(SAVE_TABINDEX, $input.attr("tabindex"));
+			var $input = $(this),
+				tabIndex = $input.attr("tabindex");
+			if ($input.data(SAVE_TABINDEX)) {
+				return;
+			}
+			$input.data(SAVE_TABINDEX, tabIndex ? tabIndex : TABINDEX_AUTO);
 			$input.attr("tabindex", "-1");
 		});
 	}
