@@ -37,10 +37,15 @@
 		$("body").append($overlay);
 	}
 
-	function enableFocus($target) {
+	function eachFocusable($target, func) {
 		$target.find("input, a").each(function () {
-			var $input = $(this),
-				savedTabindex = $input.data(SAVE_TABINDEX);
+			func($(this));
+		});
+	}
+
+	function enableFocus($target) {
+		eachFocusable($target, function ($input) {
+			var savedTabindex = $input.data(SAVE_TABINDEX);
 			if (savedTabindex) {
 				if (savedTabindex === TABINDEX_AUTO) {
 					$input.removeAttr("tabindex");
@@ -53,9 +58,8 @@
 	}
 
 	function disableFocus($target) {
-		$target.find("input, a").each(function () {
-			var $input = $(this),
-				tabIndex = $input.attr("tabindex");
+		eachFocusable($target, function ($input) {
+			var tabIndex = $input.attr("tabindex");
 			if ($input.data(SAVE_TABINDEX)) {
 				return;
 			}
