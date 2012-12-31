@@ -6,7 +6,7 @@
 </head>
 
 <body>
-	<div>
+	<div class="group">
 		<div class="block">
 			<input>
 			<a href="..">link</a>
@@ -18,10 +18,14 @@
 	<script type="text/javascript" src="jquery-1.8.3.min.js"></script>
 	<script type="text/javascript" src="jquery.blockdisable.js"></script>
 	<script type="text/javascript">
-		$("body").on("click", ".disable-button", function () {
-			$(".block").blockDisableSet();
+	function findClosestBlock($elem) {
+		return $elem.closest(".group").find(".block");
+	}
+
+	$("body").on("click", ".disable-button", function () {
+			findClosestBlock($(this)).blockDisableSet();
 		}).on("click", ".enable-button", function () {
-			$(".block").blockDisableUnset();
+			findClosestBlock($(this)).blockDisableUnset();
 		});
 	</script>
 </body>
