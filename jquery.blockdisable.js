@@ -38,7 +38,7 @@
 	}
 
 	function enableFocus($target) {
-		$target.find("input").each(function () {
+		$target.find("input, a").each(function () {
 			var $input = $(this),
 				savedTabindex = $input.data(SAVE_TABINDEX);
 			if (savedTabindex) {
@@ -53,7 +53,7 @@
 	}
 
 	function disableFocus($target) {
-		$target.find("input").each(function () {
+		$target.find("input, a").each(function () {
 			var $input = $(this),
 				tabIndex = $input.attr("tabindex");
 			if ($input.data(SAVE_TABINDEX)) {
