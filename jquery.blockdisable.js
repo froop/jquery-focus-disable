@@ -24,28 +24,24 @@
 	}
 
 	function enableFocus($target) {
-		eachLink($target, function ($item) {
-			var saved = $item.data(SAVE_TABINDEX);
+		function resetAttribute($item, attrName, dataKey) {
+			var saved = $item.data(dataKey);
 			if (saved !== undefined) {
 				if (saved) {
-					$item.attr("tabindex", saved);
+					$item.attr(attrName, saved);
 				} else {
-					$item.removeAttr("tabindex");
+					$item.removeAttr(attrName);
 				}
-				$item.removeData(SAVE_TABINDEX);
+				$item.removeData(dataKey);
 			}
+		}
+
+		eachLink($target, function ($item) {
+			resetAttribute($item, "tabindex", SAVE_TABINDEX);
 		});
 
 		eachInput($target, function ($item) {
-			var saved = $item.data(SAVE_DISABLED);
-			if (saved !== undefined) {
-				if (saved) {
-					$item.attr("disabled", saved);
-				} else {
-					$item.removeAttr("disabled");
-				}
-				$item.removeData(SAVE_DISABLED);
-			}
+			resetAttribute($item, "disabled", SAVE_DISABLED);
 		});
 	}
 
