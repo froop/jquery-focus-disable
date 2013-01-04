@@ -7,64 +7,65 @@
 /*global jQuery */
 (function ($) {
 	"use strict";
-	var SAVE_OVERLAY = "blockdisable.overlay",
-		SAVE_TABINDEX = "blockdisable.tabindex",
-		DISABLE_CLASS = "block-disabled",
-		TABINDEX_AUTO = "auto";
+	var SAVE_TABINDEX = "blockdisable.tabindex",
+		SAVE_DISABLED = "blockdisable.disabled",
+		DISABLE_CLASS = "block-disabled";
 
-	function removeOverlay($target) {
-		var $overlay = $target.data(SAVE_OVERLAY);
-		if ($overlay) {
-			$overlay.remove();
-		}
+	function eachLink($target, func) {
+		$target.find("a").each(function () {
+			func($(this));
+		});
 	}
 
-	function addOverlay($target) {
-		var $overlay = $("<div>")
-			.css({
-				position : "absolute",
-				zIndex : 999,
-				top : $target.offset().top,
-				left : $target.offset().left,
-				height : $target.outerHeight(),
-				width : $target.outerWidth(),
-				backgroundColor : "lightgrey",
-				opacity: 0.5
-			});
-
-		removeOverlay($target);
-		$target.data(SAVE_OVERLAY, $overlay);
-		$("body").append($overlay);
-	}
-
-	function eachFocusable($target, func) {
-		$target.find("input, a").each(function () {
+	function eachInput($target, func) {
+		$target.find("input").each(function () {
 			func($(this));
 		});
 	}
 
 	function enableFocus($target) {
-		eachFocusable($target, function ($item) {
-			var savedTabindex = $item.data(SAVE_TABINDEX);
-			if (savedTabindex) {
-				if (savedTabindex === TABINDEX_AUTO) {
-					$item.removeAttr("tabindex");
+		eachLink($target, function ($item) {
+			var saved = $item.data(SAVE_TABINDEX);
+			if (saved !== undefined) {
+				if (saved) {
+					$item.attr("tabindex", saved);
 				} else {
-					$item.attr("tabindex", savedTabindex);
+					$item.removeAttr("tabindex");
 				}
 				$item.removeData(SAVE_TABINDEX);
+			}
+		});
+
+		eachInput($target, function ($item) {
+			var saved = $item.data(SAVE_DISABLED);
+			if (saved !== undefined) {
+				if (saved) {
+					$item.attr("disabled", saved);
+				} else {
+					$item.removeAttr("disabled");
+				}
+				$item.removeData(SAVE_DISABLED);
 			}
 		});
 	}
 
 	function disableFocus($target) {
-		eachFocusable($target, function ($item) {
+		eachLink($target, function ($item) {
 			var tabIndex = $item.attr("tabindex");
-			if ($item.data(SAVE_TABINDEX)) {
+			if ($item.data(SAVE_TABINDEX) !== undefined) {
 				return;
 			}
-			$item.data(SAVE_TABINDEX, tabIndex ? tabIndex : TABINDEX_AUTO);
+			$item.data(SAVE_TABINDEX, tabIndex ? tabIndex : "");
 			$item.attr("tabindex", "-1");
+		});
+
+		eachInput($target, function ($item) {
+			var disabled = $item.attr("disabled");
+			if ($item.data(SAVE_DISABLED) !== undefined) {
+				return;
+			}
+			$item.data(SAVE_DISABLED, disabled ? disabled : "");
+			$item.attr("disabled", "disabled");
 		});
 	}
 
@@ -74,7 +75,6 @@
 		$elements.addClass(DISABLE_CLASS);
 		$elements.each(function () {
 			var $element = $(this);
-			addOverlay($element);
 			disableFocus($element);
 		});
 
@@ -87,7 +87,6 @@
 		$elements.removeClass(DISABLE_CLASS);
 		$elements.each(function () {
 			var $element = $(this);
-			removeOverlay($element);
 			enableFocus($element);
 		});
 
