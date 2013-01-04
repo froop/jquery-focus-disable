@@ -7,8 +7,7 @@
 /*global jQuery */
 (function ($) {
 	"use strict";
-	var SAVE_TABINDEX = "blockdisable.tabindex",
-		SAVE_DISABLED = "blockdisable.disabled",
+	var SAVE_PREFIX = "blockdisable.",
 		DISABLE_CLASS = "block-disabled";
 
 	function eachLink($target, func) {
@@ -24,43 +23,43 @@
 	}
 
 	function enableFocus($target) {
-		function resetAttribute($item, attrName, dataKey) {
-			var saved = $item.data(dataKey);
+		function resetAttribute($item, attrName) {
+			var saved = $item.data(SAVE_PREFIX + attrName);
 			if (saved !== undefined) {
 				if (saved) {
 					$item.attr(attrName, saved);
 				} else {
 					$item.removeAttr(attrName);
 				}
-				$item.removeData(dataKey);
+				$item.removeData(SAVE_PREFIX + attrName);
 			}
 		}
 
 		eachLink($target, function ($item) {
-			resetAttribute($item, "tabindex", SAVE_TABINDEX);
+			resetAttribute($item, "tabindex");
 		});
 
 		eachInput($target, function ($item) {
-			resetAttribute($item, "disabled", SAVE_DISABLED);
+			resetAttribute($item, "disabled");
 		});
 	}
 
 	function disableFocus($target) {
-		function setAttribute($item, attrName, dataKey, disableValue) {
+		function setAttribute($item, attrName, disableValue) {
 			var attr = $item.attr(attrName);
-			if ($item.data(dataKey) !== undefined) {
+			if ($item.data(SAVE_PREFIX + attrName) !== undefined) {
 				return;
 			}
-			$item.data(dataKey, attr ? attr : "");
+			$item.data(SAVE_PREFIX + attrName, attr ? attr : "");
 			$item.attr(attrName, disableValue);
 		}
 
 		eachLink($target, function ($item) {
-			setAttribute($item, "tabindex", SAVE_TABINDEX, "-1");
+			setAttribute($item, "tabindex", "-1");
 		});
 
 		eachInput($target, function ($item) {
-			setAttribute($item, "disabled", SAVE_DISABLED, "disabled");
+			setAttribute($item, "disabled", "disabled");
 		});
 	}
 
