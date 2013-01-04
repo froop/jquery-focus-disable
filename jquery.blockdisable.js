@@ -46,22 +46,21 @@
 	}
 
 	function disableFocus($target) {
-		eachLink($target, function ($item) {
-			var tabIndex = $item.attr("tabindex");
-			if ($item.data(SAVE_TABINDEX) !== undefined) {
+		function setAttribute($item, attrName, dataKey, disableValue) {
+			var attr = $item.attr(attrName);
+			if ($item.data(dataKey) !== undefined) {
 				return;
 			}
-			$item.data(SAVE_TABINDEX, tabIndex ? tabIndex : "");
-			$item.attr("tabindex", "-1");
+			$item.data(dataKey, attr ? attr : "");
+			$item.attr(attrName, disableValue);
+		}
+
+		eachLink($target, function ($item) {
+			setAttribute($item, "tabindex", SAVE_TABINDEX, "-1");
 		});
 
 		eachInput($target, function ($item) {
-			var disabled = $item.attr("disabled");
-			if ($item.data(SAVE_DISABLED) !== undefined) {
-				return;
-			}
-			$item.data(SAVE_DISABLED, disabled ? disabled : "");
-			$item.attr("disabled", "disabled");
+			setAttribute($item, "disabled", SAVE_DISABLED, "disabled");
 		});
 	}
 
