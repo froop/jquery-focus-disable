@@ -80,21 +80,22 @@
 	}
 
 	function disableFocus($target) {
-		function setAttribute($item, attrName, disableValue) {
-			var attr = $item.attr(attrName);
+		function saveProperty($item, attrName, attr) {
 			if ($item.data(SAVE_PREFIX + attrName) !== undefined) {
 				return;
 			}
 			$item.data(SAVE_PREFIX + attrName, attr ? attr : "");
+		}
+
+		function setAttribute($item, attrName, disableValue) {
+			var attr = $item.attr(attrName);
+			saveProperty($item, attrName, attr);
 			$item.attr(attrName, disableValue);
 		}
 
 		function setStyle($item, attrName, disableValue) {
 			var attr = $item.css(attrName);
-			if ($item.data(SAVE_PREFIX + attrName) !== undefined) {
-				return;
-			}
-			$item.data(SAVE_PREFIX + attrName, attr ? attr : "");
+			saveProperty($item, attrName, attr);
 			$item.css(attrName, disableValue);
 		}
 
