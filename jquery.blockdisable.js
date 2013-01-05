@@ -8,7 +8,22 @@
 (function ($) {
 	"use strict";
 	var SAVE_PREFIX = "blockdisable.",
+		SAVE_OVERLAY = SAVE_PREFIX + "overlay",
 		DISABLE_CLASS = "block-disabled";
+
+	function removeOverlay($target) {
+		var $overlay = $target.data(SAVE_OVERLAY);
+		if ($overlay) {
+			$overlay.remove();
+		}
+	}
+
+	function addOverlay($target) {
+		var $overlay = $("<span>").text($target.text());
+		removeOverlay($target);
+		$target.data(SAVE_OVERLAY, $overlay);
+		$target.after($overlay);
+	}
 
 	function eachLink($target, func) {
 		$target.find("a").each(function () {
@@ -36,7 +51,7 @@
 		}
 
 		eachLink($target, function ($item) {
-			resetAttribute($item, "tabindex");
+			removeOverlay($item);
 		});
 
 		eachInput($target, function ($item) {
@@ -55,7 +70,7 @@
 		}
 
 		eachLink($target, function ($item) {
-			setAttribute($item, "tabindex", "-1");
+			addOverlay($item);
 		});
 
 		eachInput($target, function ($item) {

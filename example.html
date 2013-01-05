@@ -3,25 +3,17 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>jquery.blockdisable.js example</title>
+	<link rel="stylesheet" type="text/css" href="jquery.blockdisable.css">
 </head>
 
 <body>
 	<div class="group">
 		<div class="block">
-			<input tabindex="2" value="tabindex=2">
-			<a tabindex="1" href="..">tabindex=1</a>
-			<a href="..">no tabindex</a>
+			<input>
+			<a href="..">link</a>
 		</div>
-		<input tabindex="3" class="disable-button" type="button" value="disable">
-		<input tabindex="4" class="enable-button" type="button" value="enable">
-	</div>
-	<div class="group">
-		<div class="block">
-			<input tabindex="-1" value="tabindex=-1">
-			<a tabindex="-1" href="..">tabindex=-1</a>
-		</div>
-		<input tabindex="11" class="disable-button" type="button" value="disable">
-		<input tabindex="12" class="enable-button" type="button" value="enable">
+		<input class="disable-button" type="button" value="disable">
+		<input class="enable-button" type="button" value="enable">
 	</div>
 
 	<script type="text/javascript" src="jquery-1.8.3.min.js"></script>
