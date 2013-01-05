@@ -1,15 +1,15 @@
 /**
- * jquery.blockdisable.js - jQuery plugin.
+ * jquery.focusdisable.js - jQuery plugin.
  *
- * Copyright (c) 2013 froop http://github.com/froop/jquery-block-disable
+ * Copyright (c) 2013 froop http://github.com/froop/jquery-focus-disable
  * The MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 /*global jQuery */
 (function ($) {
 	"use strict";
-	var SAVE_PREFIX = "blockdisable.",
+	var SAVE_PREFIX = "focusdisable.",
 		SAVE_OVERLAY = SAVE_PREFIX + "overlay",
-		DISABLE_CLASS = "block-disabled";
+		DISABLE_CLASS = "focus-disabled";
 
 	function removeOverlay($target) {
 		var $overlay = $target.data(SAVE_OVERLAY);
@@ -103,7 +103,7 @@
 		});
 	}
 
-	$.fn.blockDisableSet = function () {
+	$.fn.focusDisableSet = function () {
 		var $elements = this;
 
 		$elements.addClass(DISABLE_CLASS);
@@ -115,7 +115,7 @@
 		return this;
 	};
 
-	$.fn.blockDisableUnset = function () {
+	$.fn.focusDisableUnset = function () {
 		var $elements = this;
 
 		$elements.removeClass(DISABLE_CLASS);
@@ -127,7 +127,7 @@
 		return this;
 	};
 
-	$.fn.blockDisabled = function () {
+	$.fn.focusDisabled = function () {
 		var $elements = this;
 		return $elements.closest("." + DISABLE_CLASS).length > 0;
 	};

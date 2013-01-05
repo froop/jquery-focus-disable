@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>jquery.blockdisable.js example</title>
+	<title>jquery.focusdisable.js example</title>
 </head>
 
 <body>
@@ -18,16 +18,16 @@
 	</div>
 
 <script type="text/javascript" src="jquery-1.8.3.min.js"></script>
-<script type="text/javascript" src="jquery.blockdisable.js"></script>
+<script type="text/javascript" src="jquery.focusdisable.js"></script>
 <script type="text/javascript">
 	function findClosestBlock($elem) {
 		return $elem.closest(".group").find(".block");
 	}
 
 	$("body").on("click", ".disable-button", function () {
-			findClosestBlock($(this)).blockDisableSet();
+			findClosestBlock($(this)).focusDisableSet();
 		}).on("click", ".enable-button", function () {
-			findClosestBlock($(this)).blockDisableUnset();
+			findClosestBlock($(this)).focusDisableUnset();
 		});
 </script>
 </body>
