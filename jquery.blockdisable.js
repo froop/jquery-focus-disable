@@ -1,7 +1,7 @@
 /**
  * jquery.blockdisable.js - jQuery plugin.
  *
- * Copyright (c) 2012 froop http://github.com/froop/jquery-async-disabler
+ * Copyright (c) 2013 froop http://github.com/froop/jquery-block-disabl
  * The MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 /*global jQuery */
