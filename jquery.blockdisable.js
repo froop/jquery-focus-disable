@@ -91,6 +91,9 @@
 		}
 
 		eachLink($target, function ($item) {
+			if ($item.css("display") === "none") {
+				return;
+			}
 			addOverlay($item);
 			setStyle($item, "display", "none");
 		});
