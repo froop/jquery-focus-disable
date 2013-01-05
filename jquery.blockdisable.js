@@ -91,7 +91,7 @@
 		}
 
 		eachLink($target, function ($item) {
-			if ($item.css("display") === "none") {
+			if (!$item.is(":visible")) {
 				return;
 			}
 			addOverlay($item);
