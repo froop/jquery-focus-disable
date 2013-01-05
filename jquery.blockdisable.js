@@ -50,9 +50,17 @@
 			}
 		}
 
+		function resetStyle($item, attrName) {
+			var saved = $item.data(SAVE_PREFIX + attrName);
+			if (saved !== undefined) {
+				$item.css(attrName, saved);
+				$item.removeData(SAVE_PREFIX + attrName);
+			}
+		}
+
 		eachLink($target, function ($item) {
 			removeOverlay($item);
-			$item.css("display", ""); //TODO
+			resetStyle($item, "display");
 		});
 
 		eachInput($target, function ($item) {
@@ -70,9 +78,18 @@
 			$item.attr(attrName, disableValue);
 		}
 
+		function setStyle($item, attrName, disableValue) {
+			var attr = $item.css(attrName);
+			if ($item.data(SAVE_PREFIX + attrName) !== undefined) {
+				return;
+			}
+			$item.data(SAVE_PREFIX + attrName, attr ? attr : "");
+			$item.css(attrName, disableValue);
+		}
+
 		eachLink($target, function ($item) {
 			addOverlay($item);
-			$item.css("display", "none");
+			setStyle($item, "display", "none");
 		});
 
 		eachInput($target, function ($item) {
