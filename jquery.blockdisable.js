@@ -38,7 +38,7 @@
 	}
 
 	function enableFocus($target) {
-		function restoreProperty($item, propName, functions) {
+		function loadProperty($item, propName, functions) {
 			var saved = $item.data(SAVE_PREFIX + propName);
 			if (saved !== undefined) {
 				if (saved) {
@@ -51,7 +51,7 @@
 		}
 
 		function resetAttribute($item, attrName) {
-			restoreProperty($item, attrName, {
+			loadProperty($item, attrName, {
 				setProperty : function (name, value) {
 					$item.attr(name, value);
 				},
@@ -62,7 +62,7 @@
 		}
 
 		function resetStyle($item, attrName) {
-			restoreProperty($item, attrName, {
+			loadProperty($item, attrName, {
 				setProperty : function (name, value) {
 					$item.css(attrName, value);
 				}
