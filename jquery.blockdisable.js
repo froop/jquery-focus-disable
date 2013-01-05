@@ -38,35 +38,26 @@
 	}
 
 	function enableFocus($target) {
-		function loadProperty($item, propName, functions) {
+		function loadProperty($item, propName) {
 			var saved = $item.data(SAVE_PREFIX + propName);
 			if (saved !== undefined) {
-				if (saved) {
-					functions.setProperty(propName, saved);
-				} else {
-					functions.removeProperty(propName);
-				}
 				$item.removeData(SAVE_PREFIX + propName);
 			}
+			return saved;
 		}
 
 		function resetAttribute($item, attrName) {
-			loadProperty($item, attrName, {
-				setProperty : function (name, value) {
-					$item.attr(name, value);
-				},
-				removeProperty : function (name) {
-					$item.removeAttr(name);
-				}
-			});
+			var value = loadProperty($item, attrName);
+			if (value) {
+				$item.attr(attrName, value);
+			} else {
+				$item.removeAttr(attrName);
+			}
 		}
 
 		function resetStyle($item, attrName) {
-			loadProperty($item, attrName, {
-				setProperty : function (name, value) {
-					$item.css(attrName, value);
-				}
-			});
+			var value = loadProperty($item, attrName);
+			$item.css(attrName, value);
 		}
 
 		eachLink($target, function ($item) {
