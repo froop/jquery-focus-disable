@@ -3,22 +3,21 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>jquery.blockdisable.js example</title>
-	<link rel="stylesheet" type="text/css" href="jquery.blockdisable.css">
 </head>
 
 <body>
 	<div class="group">
 		<div class="block">
 			<input>
-			<a href="..">link</a>
+			<a href=".." style="display: inline;">link</a>
 		</div>
 		<input class="disable-button" type="button" value="disable">
 		<input class="enable-button" type="button" value="enable">
 	</div>
 
-	<script type="text/javascript" src="jquery-1.8.3.min.js"></script>
-	<script type="text/javascript" src="jquery.blockdisable.js"></script>
-	<script type="text/javascript">
+<script type="text/javascript" src="jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="jquery.blockdisable.js"></script>
+<script type="text/javascript">
 	function findClosestBlock($elem) {
 		return $elem.closest(".group").find(".block");
 	}
@@ -28,6 +27,6 @@
 		}).on("click", ".enable-button", function () {
 			findClosestBlock($(this)).blockDisableUnset();
 		});
-	</script>
+</script>
 </body>
 </html>

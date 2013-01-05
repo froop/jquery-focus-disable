@@ -52,6 +52,7 @@
 
 		eachLink($target, function ($item) {
 			removeOverlay($item);
+			$item.css("display", ""); //TODO
 		});
 
 		eachInput($target, function ($item) {
@@ -71,6 +72,7 @@
 
 		eachLink($target, function ($item) {
 			addOverlay($item);
+			$item.css("display", "none");
 		});
 
 		eachInput($target, function ($item) {
