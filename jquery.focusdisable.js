@@ -32,7 +32,7 @@
 	}
 
 	function eachInput($target, func) {
-		$target.find("input").each(function () {
+		$target.find(":input").each(function () {
 			func($(this));
 		});
 	}
