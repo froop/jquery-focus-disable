@@ -46,18 +46,18 @@
 			return saved;
 		}
 
-		function resetAttribute($item, attrName) {
-			var value = loadProperty($item, attrName);
+		function resetAttribute($item, name) {
+			var value = loadProperty($item, name);
 			if (value) {
-				$item.attr(attrName, value);
+				$item.attr(name, value);
 			} else {
-				$item.removeAttr(attrName);
+				$item.removeAttr(name);
 			}
 		}
 
-		function resetStyle($item, attrName) {
-			var value = loadProperty($item, attrName);
-			$item.css(attrName, value);
+		function resetStyle($item, name) {
+			var value = loadProperty($item, name);
+			$item.css(name, value);
 		}
 
 		eachLink($target, function ($item) {
@@ -71,23 +71,23 @@
 	}
 
 	function disableFocus($target) {
-		function saveProperty($item, attrName, attr) {
-			if ($item.data(SAVE_PREFIX + attrName) !== undefined) {
+		function saveProperty($item, name, value) {
+			if ($item.data(SAVE_PREFIX + name) !== undefined) {
 				return;
 			}
-			$item.data(SAVE_PREFIX + attrName, attr ? attr : "");
+			$item.data(SAVE_PREFIX + name, value ? value : "");
 		}
 
-		function setAttribute($item, attrName, disableValue) {
-			var attr = $item.attr(attrName);
-			saveProperty($item, attrName, attr);
-			$item.attr(attrName, disableValue);
+		function setAttribute($item, name, disableValue) {
+			var value = $item.attr(name);
+			saveProperty($item, name, value);
+			$item.attr(name, disableValue);
 		}
 
-		function setStyle($item, attrName, disableValue) {
-			var attr = $item.css(attrName);
-			saveProperty($item, attrName, attr);
-			$item.css(attrName, disableValue);
+		function setStyle($item, name, disableValue) {
+			var value = $item.css(name);
+			saveProperty($item, name, value);
+			$item.css(name, disableValue);
 		}
 
 		eachLink($target, function ($item) {
